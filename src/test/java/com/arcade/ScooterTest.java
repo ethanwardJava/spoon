@@ -56,10 +56,14 @@ public class ScooterTest {
         Shepherd shepherd = new Shepherd("James Potter"); // GIVING THE MOCK A RETURN VALUE
         Animal lion = mock(Animal.class, RETURNS_SMART_NULLS);
         when(lion.getShepherd()).thenReturn(shepherd);
-
         System.out.println(lion.age);
         System.out.println(lion.getShepherd().toString());
-
         System.out.println("==================================================");
+        Animal Zibra = mock(Animal.class, RETURNS_MOCKS);
+        when(Zibra.getShepherd()).thenReturn(mock(Shepherd.class));
+        System.out.println(Zibra.age);
+        System.out.println(Zibra.getShepherd());
+
+
     }
 }
