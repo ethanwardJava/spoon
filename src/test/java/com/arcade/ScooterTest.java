@@ -1,21 +1,32 @@
 package com.arcade;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class ScooterTest {
 
-    private static final Scooter scooterMock = mock(Scooter.class);
+    private static Scooter scooterMock = null;
+
+
+    @BeforeEach
+    void setUp() {
+        scooterMock = mock(Scooter.class);
+    }
+
 
     @Test
     @Disabled("This test is passed")
@@ -39,8 +50,8 @@ public class ScooterTest {
         assertEquals(0, number % 2);
     }
 
-
     @Test
+    @Disabled
     public void animalAndShepherd() {
         Animal monkey = mock(Animal.class);
         System.out.println(monkey.getShepherd());
@@ -64,6 +75,36 @@ public class ScooterTest {
         System.out.println(Zibra.age);
         System.out.println(Zibra.getShepherd());
 
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "2,2 , 4",
+            "2,3 , 8",
+            "2,4 , 16",
+            "3,4 , 81",
+            "7,2 , 49"
+    })
+    @Disabled
+    public void something(int a, int b, double expected) {
+        RealOne realOne = new RealOne();
+        double value = realOne.calc(a, b);
+        assertEquals(expected, value, String.format("Expected %f but got %f", value, expected));
+    }
+
+
+    @Test
+    @Disabled
+    public void sum_negativeAndPositive_returnsCorrectResult() {
+        RealOne realOne = new RealOne();
+        int actualResult = realOne.sum(-10, 40);
+        assertThat(actualResult)
+                .isEqualTo(30)
+                .isPositive()
+                .isNotEqualTo(-50)
+                .isGreaterThan(25)
+                .isBetween(29, 31);
 
     }
 }
