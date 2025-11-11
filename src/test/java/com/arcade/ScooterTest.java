@@ -1,31 +1,27 @@
 package com.arcade;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Answers;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class ScooterTest {
 
-    private static Scooter scooterMock = null;
-
-
-    @BeforeEach
-    void setUp() {
-        scooterMock = mock(Scooter.class);
-    }
+    @Mock(answer = Answers.RETURNS_SMART_NULLS)
+    private static Scooter scooterMock;
 
 
     @Test
@@ -58,7 +54,7 @@ public class ScooterTest {
         System.out.println(monkey.age);
 
 
-        Animal parrot = mock(Animal.class, RETURNS_DEFAULTS);
+        Animal parrot = mock(Animal.class, withSettings().defaultAnswer(RETURNS_SMART_NULLS));
         System.out.println("==================================================");
         System.out.println(parrot.age); // 0
         System.out.println(parrot.getShepherd()); // null
@@ -95,6 +91,7 @@ public class ScooterTest {
 
 
     @Test
+    @DisplayName("The sum of -10 And 40 will always be 30")
     @Disabled
     public void sum_negativeAndPositive_returnsCorrectResult() {
         RealOne realOne = new RealOne();
@@ -107,4 +104,24 @@ public class ScooterTest {
                 .isBetween(29, 31);
 
     }
+
+
+    @Test
+    @Disabled
+    public void returnTheReverseSpy() {
+        RealOne realOne = spy(new RealOne());
+        // Prevent calling the real method
+        doReturn("avaJ").when(realOne).reverser("Java");
+
+        String vl = realOne.reverser("Java");
+        assertThat(vl).isEqualTo("avaJ");
+    }
+
+
+    @Test
+    public void throwsWhenIsCalled() {
+        assertThrows(ArithmeticException.class, () -> new RealOne().theMethodWhoThrowsException(), "Zambrano");
+    }
+
+
 }

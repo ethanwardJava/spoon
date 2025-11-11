@@ -8,11 +8,20 @@ public class RealOne {
         return Math.pow(a, b);
     }
 
-    public String reverser(String a){
+    public String reverser(String a) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(a).reverse();
         return stringBuilder.toString();
     }
+
+    public void theMethodWhoThrowsException() {
+        throw new ArithmeticException();
+    }
+
+
+
+
+
 
     public int sum(int a, int b) {
         return a + b;
