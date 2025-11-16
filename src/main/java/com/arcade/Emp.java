@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.SQLException;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,5 +15,9 @@ public class Emp {
     private String firstName;
     private String lastName;
     private String email;
+
+    public void greet() throws SQLException {
+        System.out.println("Hello World");
+    }
 }
 
