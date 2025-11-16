@@ -19,5 +19,9 @@ public class Emp {
     public void greet() throws SQLException {
         System.out.println("Hello World");
     }
+
+    public int calculateSalary(int sal) {
+        return sal * 12;
+    }
 }
 

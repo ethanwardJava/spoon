@@ -10,8 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +46,18 @@ class EmpTest {
 
     @Test
     void throwExceptionIsVoidIsCalled() throws SQLException {
+
         doThrow(new SQLException()).when(emp).greet();
-        assertThrows(SQLException.class, () -> emp.greet());
+        doReturn("Shiva").when(emp).getFirstName();
+
+        when(emp.calculateSalary(anyInt())).thenReturn(1200);
+
+        assertAll(
+                () -> assertEquals("Shiva", emp.getFirstName()),
+                () -> assertThrows(SQLException.class, () -> emp.greet())
+        );
+
+
+
     }
 }
