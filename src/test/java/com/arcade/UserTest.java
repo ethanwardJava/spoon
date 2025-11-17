@@ -2,32 +2,34 @@ package com.arcade;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class UserTest {
 
-    User user;
 
-    User userMock = mock(User.class, "userMock");
+    @Mock
+    User user;
 
     @BeforeEach
     void setUp() {
-        user = new User();
+        when(user.getName()).thenReturn("Alex");
+        when(user.getEmail()).thenReturn("alexDrugDealer67@gmail.com");
     }
 
     @Test
-    void chackUser() {
-        when(userMock.getName()).thenReturn("John");
-        assertEquals("John", userMock.getName());
+    void nameShouldBeAlex() {
+        assertAll(
+                () -> assertEquals("Alex".toLowerCase(), user.getName().toLowerCase()),
+                () -> assertEquals("alexDrugDealer67@gmail.com".toLowerCase(), user.getEmail().toLowerCase())
+        );
     }
 
-    @Test
-    void chackUser2() {
-        when(userMock.getName()).thenReturn("Jack");
-        assertEquals("Jack", userMock.getName());
-    }
 
 }

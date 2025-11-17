@@ -3,10 +3,11 @@ package com.arcade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @Builder
 
 public class User {
@@ -14,7 +15,5 @@ public class User {
     String name;
     String email;
 
-    public User() {
-        System.out.println("Constructor is called");
-    }
+
 }
