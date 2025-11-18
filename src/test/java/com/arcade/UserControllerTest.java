@@ -1,29 +1,30 @@
 package com.arcade;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.TimeUnit;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
     @Mock
-    private UserRepository userRepository;
-    @Mock
-    private UserService userService;
+    UserService userService;
+
     @InjectMocks
-    private UserController userController;
+    UserController userController;
 
     @Test
-    @Timeout(value = 600 , unit = TimeUnit.MILLISECONDS)
-    void addUser(){
+    @DisplayName("Service get user should return mock user")
+    void serviceGetUserById_ShouldReturn_John() {
+        User user = User.builder().id(1L).name("John").email("babaYaga@gmail.com").role("ASSESSING").build();
+        when(userService.findById(1L)).thenReturn(user);
 
+        assertEquals(user.getName(), userController.findById(1L).getName());
     }
-
-
 }
