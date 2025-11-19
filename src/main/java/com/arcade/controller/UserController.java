@@ -1,5 +1,7 @@
-package com.arcade;
+package com.arcade.controller;
 
+import com.arcade.entity.User;
+import com.arcade.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +23,13 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public User findById(@PathVariable Long id) {
+    public User findById(@PathVariable("id") Long id) {
         return userService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<User> findByName(@PathVariable("name") String name){
+        return userService.findByName(name);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.arcade;
+package com.arcade.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

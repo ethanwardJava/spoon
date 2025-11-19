@@ -1,5 +1,7 @@
-package com.arcade;
+package com.arcade.service;
 
+import com.arcade.entity.User;
+import com.arcade.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,10 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElse(null);
+    }
+
+    @Override
+    public List<User> findByName(String name) {
+        return userRepository.findByNameIgnoreCase(name);
     }
 }
